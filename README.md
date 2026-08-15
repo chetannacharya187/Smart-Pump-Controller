@@ -1,4 +1,9 @@
 # Smart-Pump-IoT-Controller 💧
+<img width="180" alt="Auto Mode" src="https://github.com/user-attachments/assets/a3f7f571-7ead-4cbb-ab0a-4820a286cbd0" />
+<img width="180" alt="Manual Mode 1" src="https://github.com/user-attachments/assets/1c914d6b-955c-4273-9adb-2b62378256c6" />
+<img width="180" alt="Manual Mode 2" src="https://github.com/user-attachments/assets/71b3995c-6f24-4b9d-8374-02100ead269c" />
+<img width="180" alt="Manual Mode 3" src="https://github.com/user-attachments/assets/53ae70d5-485c-4d85-8d3e-6f4f0e63890f" />
+<img width="180" alt="Manual Mode 4" src="https://github.com/user-attachments/assets/1d604376-aa4b-4514-95f4-db90604b7084" />
 
 An industrial-grade, ESP32-based fully automated water pump controller built with a modular C++ architecture in PlatformIO. 
 
