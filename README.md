@@ -33,5 +33,3 @@ The ESP32 hosts a responsive, dark-mode web dashboard featuring:
 * Sump recovery countdowns and diagnostic warnings.
 * Hardware-locked "God Mode" (Manual Override) with a strict 15-minute safety timeout.
 * Daily and Yesterday water usage tracking.
-
-*(Add a screenshot of your web dashboard here later!)*
