@@ -3,10 +3,10 @@
 
 // --- WI-FI CREDENTIALS ---
 // Remember to change these before pushing to GitHub!
-static const char* primarySSID = "ChetanNilaya";
-static const char* primaryPASS = "6363174213";
-static const char* secondarySSID = "sedancarrentals";
-static const char* secondaryPASS = "aynat1769";
+static const char* primarySSID = "YOUR_WIFI_NAME";
+static const char* primaryPASS = "YOUR_WIFI_PASSWORD";
+static const char* secondarySSID = "YOUR_BACKUP_WIFI_NAME";
+static const char* secondaryPASS = "YOUR_BACKUP_PASSWORD";
 
 // --- HARDWARE PINS ---
 const int RELAY_PIN = 4;
