@@ -1,12 +1,8 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-// --- WI-FI CREDENTIALS ---
-// Remember to change these before pushing to GitHub!
-static const char* primarySSID = "YOUR_WIFI_NAME";
-static const char* primaryPASS = "YOUR_WIFI_PASSWORD";
-static const char* secondarySSID = "YOUR_BACKUP_WIFI_NAME";
-static const char* secondaryPASS = "YOUR_BACKUP_PASSWORD";
+// Import Wi-Fi credentials from hidden secrets file
+#include "Secrets.h"
 
 // --- HARDWARE PINS ---
 const int RELAY_PIN = 4;
