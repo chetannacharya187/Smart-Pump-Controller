@@ -105,7 +105,7 @@ void setupNetwork() {
   
   Serial.print("Connecting to Primary Wi-Fi");
   int bootTimeout = 0;
-  while (WiFi.status() != WL_CONNECTED && bootTimeout < 15) {
+  while (WiFi.status() != WL_CONNECTED && bootTimeout < 30) {
     delay(1000);
     Serial.print(".");
     bootTimeout++;
@@ -122,7 +122,6 @@ void setupNetwork() {
     Serial.println(WiFi.localIP()); 
   } 
   
-  ArduinoOTA.setHostname("pump-ota"); 
   ArduinoOTA.begin();
   
   server.on("/", handleRoot);
