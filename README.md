@@ -20,7 +20,6 @@ This system manages a 1HP induction motor to transfer water from an underground 
 * **Flash Wear-Leveling:** Non-volatile memory (`Preferences.h`) saves water usage data only at 250L intervals to prevent burning out the ESP32's flash memory.
 * **Time-Aware Resource Capture:** Uses NTP (Network Time Protocol) to automatically shift the refill trigger from 60% to 90% between 11 PM and 7 AM to maximise municipal water storage.
 * **Background Wi-Fi Roaming:** Non-blocking connection logic seamlessly hops between primary and secondary Wi-Fi networks if the router drops, without interrupting motor safety checks.
-* **OTA Updates (mDNS):** Fully supports Over-The-Air firmware flashing via `pump-ota.local`.
 
 ## 🛠️ Hardware Stack
 * **Microcontroller:** ESP32 DOIT DevKit V1
