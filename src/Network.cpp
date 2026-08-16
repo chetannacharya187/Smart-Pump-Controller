@@ -93,9 +93,6 @@ void handleResetAuto() {
 
 // --- NETWORK INITIALIZATION ---
 void setupNetwork() {
-  WiFi.disconnect(true);
-  WiFi.persistent(false); 
-  delay(100); 
   
   WiFi.mode(WIFI_STA);
   WiFi.begin(primarySSID, primaryPASS);
@@ -131,6 +128,8 @@ void setupNetwork() {
   server.on("/toggle", handleToggle);
   server.on("/resetAuto", handleResetAuto);
   server.begin();
+
+  lastWifiCheck = millis();
 }
 
 void handleWiFi() {

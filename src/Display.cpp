@@ -55,13 +55,33 @@ void updateDisplay(unsigned long currentMillis) {
       lastRow3Cycle = currentMillis;
       showYesterday = !showYesterday;
     }
+    
     String r3 = "";
     if (showYesterday) {
-      r3 = "YESTERDAY: " + String((int)yesterdayUsage) + " L";
+      r3 = "YEST: " + String((int)yesterdayUsage) + " L";
     } else {
-      if (todayUsage <= 400) r3 = ">> GREAT JOB! <<";
-      else if (todayUsage <= 800) r3 = ">> NORMAL USAGE <<";
-      else r3 = ">> HIGH USAGE! <<";
+      if (currentHour == -1) {
+        r3 = "WAITING FOR TIME...";
+      } else if (currentHour < 12) { 
+        // --- MORNING LOGIC (Midnight to 11:59 AM) ---
+        if (todayUsage < 200) r3 = ">> GOOD MORNING! <<";
+        else r3 = ">> HIGH MORNING USE!";
+      } else { 
+        // --- AFTERNOON/EVENING LOGIC (12:00 PM to 11:59 PM) ---
+        if (yesterdayUsage > 50) { // If we have valid yesterday data to compare to
+          if (todayUsage < (yesterdayUsage * 0.8)) {
+            r3 = ">> SAVING WATER! <<";
+          } else if (todayUsage <= yesterdayUsage) {
+            r3 = ">> ON TRACK! <<";
+          } else {
+            r3 = ">> OVER YESTERDAY! <<";
+          }
+        } else { // Fallback if yesterday was 0 (e.g., first day running)
+          if (todayUsage <= 400) r3 = ">> GREAT JOB! <<";
+          else if (todayUsage <= 800) r3 = ">> NORMAL USAGE <<";
+          else r3 = ">> HIGH USAGE! <<";
+        }
+      }
     }
 
     lcd.setCursor(0, 0); lcd.print(padLine(r0));

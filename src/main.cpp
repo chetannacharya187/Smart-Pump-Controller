@@ -30,6 +30,7 @@ int currentTankPercent = 0;
 int currentTankDistance = -1; 
 float todayUsage = 0.0;
 float yesterdayUsage = 0.0;
+int currentHour = -1;
 
 unsigned long motorStartTime = 0;
 unsigned long sumpLockoutStartTime = 0;
@@ -114,6 +115,7 @@ void loop() {
     lastTimeCheck = currentMillis;
     struct tm timeinfo;
     if (getLocalTime(&timeinfo, 0)) { 
+      currentHour = timeinfo.tm_hour;
       
       // Midnight Reset
       if (currentDay == -1) {

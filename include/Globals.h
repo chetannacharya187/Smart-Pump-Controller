@@ -20,6 +20,7 @@ extern bool flowLockout;
 extern bool sumpLockedOut;
 extern bool tankLockedOut;
 extern bool sumpHasWater;
+extern int currentHour;
 
 extern int currentTankPercent;
 extern int currentTankDistance;
