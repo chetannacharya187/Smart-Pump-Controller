@@ -109,15 +109,14 @@ void loop() {
     Serial.println("FLASH SAVED: 250L Milestone Reached.");
   }
 
-  // 3. NTP MIDNIGHT ROLLOVER & TOP-UP SCHEDULE
+  // 3. NTP MIDNIGHT ROLLOVER
   static unsigned long lastTimeCheck = 0;
   if (currentMillis - lastTimeCheck >= 60000) {
     lastTimeCheck = currentMillis;
     struct tm timeinfo;
     if (getLocalTime(&timeinfo, 0)) { 
-      currentHour = timeinfo.tm_hour;
       
-      // Midnight Reset
+      // Midnight Reset (Keep this to track daily usage)
       if (currentDay == -1) {
         currentDay = timeinfo.tm_mday;
       } else if (currentDay != timeinfo.tm_mday) {
@@ -128,17 +127,8 @@ void loop() {
         preferences.putFloat("today", 0.0);
         currentDay = timeinfo.tm_mday;
       }
-
-      // Automatic Top-Up Logic
-      if (lastCheckedHour == -1) {
-        lastCheckedHour = timeinfo.tm_hour;
-        if (timeinfo.tm_hour >= 23 || timeinfo.tm_hour < 7) topUpActive = true;
-        else topUpActive = false;
-      } else if (lastCheckedHour != timeinfo.tm_hour) {
-        if (timeinfo.tm_hour == 23) topUpActive = true; 
-        else if (timeinfo.tm_hour == 7) topUpActive = false; 
-        lastCheckedHour = timeinfo.tm_hour;
-      }
+      
+      // (The automatic 11PM-7AM top-up logic has been removed from here)
     }
   }
 

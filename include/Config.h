@@ -17,7 +17,7 @@ const float LITERS_PER_CM = 19.2;
 
 // --- TIMERS (in milliseconds) ---
 const unsigned long FLOW_CHECK_INTERVAL = 4UL * 60UL * 1000UL; 
-const unsigned long SUMP_LOCKOUT_DURATION = 20UL * 60UL * 1000UL; 
+const unsigned long SUMP_LOCKOUT_DURATION = 30UL * 60UL * 1000UL; 
 const unsigned long TANK_LOCKOUT_DURATION = 50UL * 60UL * 1000UL; 
 const unsigned long WEB_OVERRIDE_TIMEOUT = 15UL * 60UL * 1000UL; 
 const unsigned long PING_INTERVAL = 2000; 

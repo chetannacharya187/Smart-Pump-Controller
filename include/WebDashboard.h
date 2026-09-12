@@ -74,7 +74,7 @@ const char PAGE_HTML[] PROGMEM = R"=====(
     <div style="border-top: 1px solid #333; margin-top: 20px; padding-top: 20px; display: flex; justify-content: space-between; align-items: center;">
       <div style="text-align: left;">
         <div style="font-weight: bold; font-size: 16px;">Top-Up Mode (90%)</div>
-        <div style="font-size: 12px; color: #aaa;">Auto-Enables: 11PM to 7AM</div>
+        <div style="font-size: 12px; color: #aaa;">Manual Toggle Only</div>
       </div>
       <label class="switch">
         <input type="checkbox" id="topUpToggle" onclick="handleTopUpClick(event)">
