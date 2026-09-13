@@ -50,7 +50,8 @@ const char PAGE_HTML[] PROGMEM = R"=====(
     <div class="sub-text" id="sumpStatus" style="font-size: 16px; margin-bottom: 30px;">Checking...</div>
     <div id="pumpStateBadge" style="font-size: 20px; font-weight: bold; margin-bottom: 5px; color: #888; letter-spacing: 1px;">-- System Booting... --</div>
     <div id="stopwatchDisplay" style="font-size: 18px; color: #00bcd4; font-weight: bold; margin-bottom: 20px; display: none;">Runtime: 00m 00s</div>
-    
+    <div id="lastRunDisplay" style="font-size: 14px; color: #aaa; margin-bottom: 20px;">Last Run: --</div>
+
     <button id="overrideBtn" class="btn-override" onclick="enterGodMode()">!! ENTER MANUAL OVERRIDE !!</button>
     
     <div id="godModePanel" class="god-mode-panel">
@@ -190,6 +191,13 @@ const char PAGE_HTML[] PROGMEM = R"=====(
           overrideBtn.style.display = "block";
           godModePanel.style.display = "none";
           resetBtn.style.display = "none";
+        }
+
+        // Update Last Run Text
+        if (data.lastRunDuration > 0) {
+          let lr_m = Math.floor(data.lastRunDuration / 60);
+          let lr_s = data.lastRunDuration % 60;
+          document.getElementById('lastRunDisplay').innerText = "Last Run: " + data.lastRunTime + " (" + lr_m + "m " + lr_s + "s)";
         }
 
         document.getElementById('topUpToggle').checked = (data.topUpActive === 1);

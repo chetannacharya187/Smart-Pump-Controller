@@ -38,6 +38,9 @@ unsigned long tankLockoutStartTime = 0;
 unsigned long lastToggleTime = 0;
 unsigned long webOverrideStartTime = 0;
 
+String lastRunTime = "--:--";
+int lastRunDuration = 0;
+
 // --- LOCAL VARIABLES ---
 float lastSavedUsage = 0.0;
 int currentDay = -1;
@@ -86,6 +89,17 @@ void loop() {
     motorStartTime = currentMillis;
     lastRelayState = true;
   } else if (!relayState && lastRelayState) {
+    
+    // THE MOTOR JUST TURNED OFF: Capture the duration and time
+    lastRunDuration = (currentMillis - motorStartTime) / 1000;
+    
+    struct tm timeinfo;
+    if (getLocalTime(&timeinfo, 0)) {
+      char timeBuff[10];
+      strftime(timeBuff, sizeof(timeBuff), "%I:%M %p", &timeinfo); // e.g., 02:30 PM
+      lastRunTime = String(timeBuff);
+    }
+    
     lastRelayState = false;
   }
 

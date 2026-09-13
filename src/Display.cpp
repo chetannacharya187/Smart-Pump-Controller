@@ -50,33 +50,31 @@ void updateDisplay(unsigned long currentMillis) {
     // Row 2: Today
     String r2 = "TODAY USED: " + String((int)todayUsage) + " L";
 
-    // Row 3: Cycling Gamification
-    if (currentMillis - lastRow3Cycle >= 10000) {
+    // Row 3: Cycling Gamification (3 States)
+    static int row3State = 0;
+    if (currentMillis - lastRow3Cycle >= 7000) { // Cycles every 7 seconds
       lastRow3Cycle = currentMillis;
-      showYesterday = !showYesterday;
+      row3State = (row3State + 1) % 3;
     }
     
     String r3 = "";
-    if (showYesterday) {
+    if (row3State == 1) {
       r3 = "YEST: " + String((int)yesterdayUsage) + " L";
+    } else if (row3State == 2) {
+      if (lastRunDuration == 0) r3 = "LAST RUN: NEVER";
+      else r3 = "RUN: " + lastRunTime + " (" + String(lastRunDuration / 60) + "m)";
     } else {
       if (currentHour == -1) {
         r3 = "WAITING FOR TIME...";
       } else if (currentHour < 12) { 
-        // --- MORNING LOGIC (Midnight to 11:59 AM) ---
         if (todayUsage < 200) r3 = ">> GOOD MORNING! <<";
         else r3 = ">> HIGH MORNING USE!";
       } else { 
-        // --- AFTERNOON/EVENING LOGIC (12:00 PM to 11:59 PM) ---
-        if (yesterdayUsage > 50) { // If we have valid yesterday data to compare to
-          if (todayUsage < (yesterdayUsage * 0.8)) {
-            r3 = ">> SAVING WATER! <<";
-          } else if (todayUsage <= yesterdayUsage) {
-            r3 = ">> ON TRACK! <<";
-          } else {
-            r3 = ">> OVER YESTERDAY! <<";
-          }
-        } else { // Fallback if yesterday was 0 (e.g., first day running)
+        if (yesterdayUsage > 50) {
+          if (todayUsage < (yesterdayUsage * 0.8)) r3 = ">> SAVING WATER! <<";
+          else if (todayUsage <= yesterdayUsage) r3 = ">> ON TRACK! <<";
+          else r3 = ">> OVER YESTERDAY! <<";
+        } else {
           if (todayUsage <= 400) r3 = ">> GREAT JOB! <<";
           else if (todayUsage <= 800) r3 = ">> NORMAL USAGE <<";
           else r3 = ">> HIGH USAGE! <<";

@@ -33,4 +33,7 @@ extern unsigned long tankLockoutStartTime;
 extern unsigned long lastToggleTime;
 extern unsigned long webOverrideStartTime;
 
+extern String lastRunTime;
+extern int lastRunDuration;
+
 #endif

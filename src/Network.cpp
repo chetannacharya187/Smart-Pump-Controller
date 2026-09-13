@@ -49,7 +49,9 @@ void handleStatus() {
   json += "\"flowLocked\":" + String(flowLockout) + ","; 
   json += "\"topUpActive\":" + String(topUpActive) + ",";
   json += "\"todayUsage\":" + String((int)todayUsage) + ","; 
-  json += "\"yesterdayUsage\":" + String((int)yesterdayUsage) + ","; 
+  json += "\"yesterdayUsage\":" + String((int)yesterdayUsage) + ",";
+  json += "\"lastRunTime\":\"" + lastRunTime + "\",";
+  json += "\"lastRunDuration\":" + String(lastRunDuration) + ",";
   json += "\"network\":\"" + (WiFi.status() == WL_CONNECTED ? WiFi.SSID() : String("Disconnected")) + "\"";
   json += "}";
   server.send(200, "application/json", json);
