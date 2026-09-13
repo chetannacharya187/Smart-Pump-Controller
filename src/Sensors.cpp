@@ -74,10 +74,33 @@ void updateSensors(unsigned long currentMillis) {
         currentTankPercent = map(currentTankDistance, TANK_EMPTY_CM, TANK_FULL_CM, 0, 100);
       }
 
+      // --- NEW: 60-SECOND SETTLING TIMER ---
+      static bool lastRelayStateSensors = false;
+      static unsigned long settlingStartTime = 0;
+      static bool isSettling = false;
+
+      // Detect the exact moment the pump turns off
+      if (relayState && !lastRelayStateSensors) {
+        lastRelayStateSensors = true;
+        isSettling = false; 
+      } else if (!relayState && lastRelayStateSensors) {
+        lastRelayStateSensors = false;
+        isSettling = true;
+        settlingStartTime = currentMillis;
+      }
+
+      // End settling phase after 60 seconds
+      if (isSettling && (currentMillis - settlingStartTime >= 60000)) {
+        isSettling = false;
+        lastTrackedDistance = currentTankDistance; // Grab a clean, flat water baseline
+      }
+      // -------------------------------------
+
       if (lastTrackedDistance == -1) {
         lastTrackedDistance = currentTankDistance;
       } else {
-        if (!relayState) {
+        // Only calculate water usage if pump is OFF and water is NOT settling
+        if (!relayState && !isSettling) {
           int drop = currentTankDistance - lastTrackedDistance;
           if (drop >= 2) { 
             todayUsage += drop * LITERS_PER_CM;
@@ -86,7 +109,7 @@ void updateSensors(unsigned long currentMillis) {
             lastTrackedDistance = currentTankDistance;
           }
         } else {
-          lastTrackedDistance = currentTankDistance;
+          lastTrackedDistance = currentTankDistance; // Keep baseline synced to sloshing water so drops are ignored
         }
       }
     }
