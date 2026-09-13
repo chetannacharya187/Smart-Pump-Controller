@@ -165,8 +165,11 @@ void loop() {
   // 7. FULLY AUTOMATIC LOGIC
   if (autoMode && currentTankDistance != -1) {
     
+    // NEW: Mandatory 30-second run shield
+    bool mandatoryRunActive = (relayState && (currentMillis - motorStartTime < 30000));
+
     // Sump Dry Run Protection
-    if (!sumpHasWater && !sumpLockedOut) {
+    if (!sumpHasWater && !sumpLockedOut && !mandatoryRunActive) {
       sumpLockedOut = true;
       sumpLockoutStartTime = currentMillis;
       relayState = false;
@@ -175,7 +178,7 @@ void loop() {
     }
 
     // Virtual Flow Switch Watchdog
-    if (relayState && !flowLockout) {
+    if (relayState && !flowLockout && !mandatoryRunActive) {
       if (flowCheckStartTime == 0) {
         flowCheckStartTime = currentMillis;
         lastFlowCheckDistance = currentTankDistance;
@@ -200,7 +203,7 @@ void loop() {
     int triggerLimit = topUpActive ? 90 : 60;
     if (currentTankPercent <= triggerLimit && !tankLockedOut && !flowLockout) {
       if (!isFilling) { isFilling = true; }
-    } else if (currentTankPercent >= 100) {
+    } else if (currentTankPercent >= 100 && !mandatoryRunActive) {
       if (isFilling) {
         isFilling = false;
         relayState = false;
@@ -218,7 +221,8 @@ void loop() {
         lastToggleTime = currentMillis; 
       }
     } else {
-      if (relayState) {
+      // Shield prevents the execution block from turning the pump off early
+      if (relayState && !mandatoryRunActive) {
         relayState = false;
         digitalWrite(RELAY_PIN, LOW);
         lastToggleTime = currentMillis; 
