@@ -12,7 +12,7 @@ const int ECHO_PIN = 18;
 
 // --- TANK CALIBRATION ---
 const int TANK_EMPTY_CM = 108; 
-const int TANK_FULL_CM = 25;   
+const int TANK_FULL_CM = 23;   
 const float LITERS_PER_CM = 19.2; 
 
 // --- TIMERS (in milliseconds) ---
